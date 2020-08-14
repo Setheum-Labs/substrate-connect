@@ -22,8 +22,6 @@ function Home ():  React.ReactElement {
 	const userInfo = useUserInfo(users.westend);
 	const [ balance ] = useBalance(userInfo.address);
 
-	console.log(balance)
-
 	return (
 		<>
 			<Bg />

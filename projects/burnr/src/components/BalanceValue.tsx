@@ -4,6 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Typography } from '@material-ui/core';
 import { SizeScale } from './types';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import { useApi } from '../hooks';
 
 interface Props extends SizeScale {
 	value: number | string;
@@ -12,8 +13,6 @@ interface Props extends SizeScale {
 interface StyleProps {
   colored?: boolean;
 }
-
-// @TODO get token codes from api
 
 const useStyles = makeStyles((theme: Theme) => ({
 	root: {
@@ -35,7 +34,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const BalanceValue: React.FunctionComponent<Props> = ({ value, size, style }: Props) => {
-	const isBalance = typeof value === 'number' || typeof parseFloat(value) === 'number';
+	const api = useApi();
+
+	const isBalance = typeof value === 'number' || !isNaN(parseFloat(value));
 	const isColored = isBalance && value >= 0 ? true : false;
 	const classes = useStyles({ colored: isColored });
 
@@ -45,7 +46,7 @@ const BalanceValue: React.FunctionComponent<Props> = ({ value, size, style }: Pr
 		<Box component='span' className={classes.root} style={style}>
 			<Typography variant={TypographyVariant}>
 				{value}
-				{isBalance && ' KSM'}
+				{isBalance && ' ' + api.registry.chainToken}
 			</Typography>
 		</Box>
 	);
