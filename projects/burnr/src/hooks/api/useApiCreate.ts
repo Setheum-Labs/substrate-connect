@@ -32,11 +32,11 @@ export default function useApiCreate (): ApiPromise | null {
   useEffect((): void => {
     ApiPromise
       .create({
-        provider: new WsProvider(endpoints.localHost),
+        provider: new WsProvider(endpoints.westend),
         types: {}
       })
       .then((api): void => {
-        console.log(`Connected to local chain at ${endpoints.localHost}`)
+        console.log(`Connected to local chain at ${endpoints.westend}`)
         mountedRef.current && setApi(api);
       })
       .catch((): void => {

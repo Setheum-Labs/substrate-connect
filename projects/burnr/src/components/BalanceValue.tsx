@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const BalanceValue: React.FunctionComponent<Props> = ({ value, size, style }: Props) => {
-	const isBalance = typeof value === 'number';
+	const isBalance = typeof value === 'number' || typeof parseFloat(value) === 'number';
 	const isColored = isBalance && value >= 0 ? true : false;
 	const classes = useStyles({ colored: isColored });
 

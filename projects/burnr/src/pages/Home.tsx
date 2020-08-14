@@ -5,7 +5,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import { NavTabs, AccountCard, BalanceValue, Bg } from '../components';
 
-import { useUserInfo } from '../hooks';
+import { useBalance, useUserInfo } from '../hooks';
 import { users } from '../constants';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -15,12 +15,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 })
 );
 
-// @TODO read balance
 // @TODO account name
 
 function Home ():  React.ReactElement {
 	const classes = useStyles();
 	const userInfo = useUserInfo(users.westend);
+	const [ balance ] = useBalance(userInfo.address);
+
+	console.log(balance)
 
 	return (
 		<>
@@ -49,7 +51,7 @@ function Home ():  React.ReactElement {
 							>
 								<Grid item xs={12}>
 									<BalanceValue
-										value={1234.56}
+										value={balance}
 										size='large'
 										style={{ width: '100%', justifyContent: 'flex-end' }}
 									/>

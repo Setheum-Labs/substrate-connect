@@ -3,6 +3,9 @@ import React from 'react';
 import { InputAddress, InputFunds } from '.';
 import { makeStyles, createStyles, Theme, Grid, Button } from '@material-ui/core';
 
+import { useBalance, useUserInfo } from '../hooks';
+import { users } from '../constants';
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
@@ -24,6 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SendFundsForm: React.FunctionComponent = () => {
 	const classes = useStyles();
+	const userInfo = useUserInfo(users.westend);
+	const [ balance ] = useBalance(userInfo.address);
 
 	function handleSubmit(event) {
 		event.preventDefault();
@@ -41,7 +46,7 @@ const SendFundsForm: React.FunctionComponent = () => {
 			</Grid>
 			<Grid item>
 				<InputFunds 
-					total={100}
+					total={balance}
 					currency={'KSM'}
 				/>
 			</Grid>

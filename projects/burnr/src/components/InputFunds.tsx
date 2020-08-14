@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Grid, TextField, Box, InputAdornment } from '@material-ui/core';
 
 interface Props {
-  total: number;
+  total: string;
   currency: string;
 }
 
@@ -12,7 +12,7 @@ interface Props {
 const InputFunds: React.FunctionComponent<Props> = ({ total, currency }: Props) => {
 	const [value, setValue] = React.useState<number | ''>('');
 	const handleChangeButton = (e) => {
-		setValue(e.currentTarget.value * total);
+		setValue(e.currentTarget.value * parseFloat(total));
 		document.getElementById('SendFundsAmountField').focus();
 	};
 	const handleChange = (e) => {
